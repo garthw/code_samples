@@ -46,7 +46,7 @@ def parse(book_list):
 
 
 def command_help():
-    print """Command to print out list of books.  Acceptable arguments:
+    return """Command to print out list of books.  Acceptable arguments:
         -h [or] --help:  Prints this text.
         --year:  Sorts by year in ascending order.
         --reverse:  Sorts by year in descending order.
@@ -88,7 +88,7 @@ def main(argv):
     if opts:
         for opt, arg in opts:
             if opt in ("-h", "--help"):
-                command_help()
+                print command_help()
                 return None
             if opt == "--filter":
                 clean_list = command_filter(clean_list, arg)

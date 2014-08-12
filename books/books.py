@@ -2,6 +2,7 @@
 
 import os, sys, getopt
 
+
 def read(rootdir):
     book_list = []
     for subdir, dirs, files in os.walk(rootdir):
@@ -12,6 +13,7 @@ def read(rootdir):
                     book_list.append(line)
             f.close()
     return book_list
+
 
 def parse(book_list):
     clean_list = []
@@ -42,6 +44,7 @@ def parse(book_list):
 
     return clean_list
 
+
 def command_help():
     print """Command to print out list of books.  Acceptable arguments:
         -h [or] --help:  Prints this text.
@@ -49,16 +52,23 @@ def command_help():
         --reverse:  Sorts by year in descending order.
         --filter [argument]:  Filters list by argument.
             ex.  python books --filter Agile
+        **** NOTE: arguments (other than help) are chainable ***
         """
 
 
 def command_year(clean_list, reverse=False):
     new_list = sorted(clean_list, key=lambda k: k['Year'], reverse=reverse)
-    print_list(new_list)
+    return new_list
 
-def command_filter(arg):
-    print "filter"
-    print arg
+
+def command_filter(clean_list, arg):
+    filtered_list = []
+    for c in clean_list:
+        for v in c.iteritems():
+            if str(arg) in str(v[1]):
+                pruned_list.append(c)
+    return filtered_list
+
 
 def print_list(final_list):
     for f in final_list:
@@ -67,8 +77,8 @@ def print_list(final_list):
                + f["Title"] + ", "
                + str(f["Year"]))
 
+
 def main(argv):
-    print "script running"
     root = "src/"
     book_list = [b.rstrip() for b in read(root)]
     clean_list = parse(book_list)
@@ -79,14 +89,15 @@ def main(argv):
         for opt, arg in opts:
             if opt in ("-h", "--help"):
                 command_help()
+                return None
             if opt == "--filter":
-                command_filter(arg)
+                clean_list = command_filter(clean_list, arg)
             if opt == "--year":
-                command_year(clean_list)
+                clean_list = command_year(clean_list)
             if opt == "--reverse":
-                command_year(clean_list, True)
-    else:
-        print_list(clean_list)
+                clean_list = command_year(clean_list, True)
+
+    print_list(clean_list)
 
 
 if __name__ == "__main__":

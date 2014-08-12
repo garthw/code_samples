@@ -43,7 +43,14 @@ def parse(book_list):
     return clean_list
 
 def command_help():
-    print "help"
+    print """ Use to print out list of books.  Acceptable arguments:
+        -h [or] --help:  Prints this text.
+        --year:  Sorts by year in ascending order.
+        --reverse:  Sorts by year in reverse order.
+        --filter [argument]:  Filters list by argument.
+            ex.  python books --filter Agile
+        """
+
 
 def command_year():
     print "year"
@@ -61,14 +68,10 @@ def main(argv):
     book_list = [b.rstrip() for b in read(root)]
     clean_list = parse(book_list)
 
-    print "_____ARGV____"
-    print argv
-
-
-    opts, args = getopt.getopt(argv, 'h', ['filter=', 'year', 'reverse'])
+    opts, args = getopt.getopt(argv, 'h', ['help', 'filter=', 'year', 'reverse'])
 
     for opt, arg in opts:
-        if opt == "-h":
+        if opt in ("-h", "--help"):
             command_help()
         if opt == "--filter":
             command_filter(arg)

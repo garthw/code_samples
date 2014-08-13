@@ -2,7 +2,7 @@ Book Command Line Script
 ========================
 
 USE:
-python books.py [-h or --help] , [--filter], [--year], [--reverse]
+python books.py [-h or --help] [--filter] [--year] [--reverse]
 
 OUTPUT:
 List of books sorted by last name.

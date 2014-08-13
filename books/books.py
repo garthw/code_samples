@@ -1,15 +1,16 @@
 #!/usr/bin/python
+# Files by Garth Whitten
+# Using Python 2.7.5
 
 import os, sys, getopt
 
 
 def read(rootdir):
     # Loops through rootdir opening and appending text by line
-    # Could use buffer if expecting larger files
     book_list = []
     for subdir, dirs, files in os.walk(rootdir):
         for file in files:
-            f = open(subdir+file, "r")
+            f = open(subdir + file, "r")
             if f.mode == "r":
                 for line in f:
                     book_list.append(line)

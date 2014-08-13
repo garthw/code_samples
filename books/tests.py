@@ -1,4 +1,6 @@
 #!/usr/bin/python
+# Files by Garth Whitten
+# Using Python 2.7.5
 
 import books, unittest, random
 

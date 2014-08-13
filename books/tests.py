@@ -47,6 +47,11 @@ class TestBooks(unittest.TestCase):
         # Assert year of random index is less than
         # or equal to year of following index
         self.assertLessEqual(first['Year'], second['Year'])
+        # Assert year of random index is greater than or equal
+        # to year of following index when reverse flag is True
+        first = books.command_year(self.clean_list, True)[start]
+        second = books.command_year(self.clean_list, True)[start + 1]
+        self.assertGreaterEqual(first['Year'], second['Year'])
 
 
     def test_command_filter(self):

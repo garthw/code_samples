@@ -2,7 +2,9 @@
 # Files by Garth Whitten
 # Using Python 2.7.5
 
-import books, unittest, random
+import books
+import unittest
+import random
 
 
 class TestBooks(unittest.TestCase):
@@ -12,12 +14,10 @@ class TestBooks(unittest.TestCase):
         self.book_list = books.read(self.file_root)
         self.clean_list = books.parse(self.book_list)
 
-
     def test_read(self):
         # Assert able to open and construct list in setup
         self.assertIsInstance(self.book_list, list)
         self.assertGreater(len(self.book_list), 0)
-
 
     def test_parse(self):
         # Assert having no delimeter raises TypeError
@@ -31,13 +31,11 @@ class TestBooks(unittest.TestCase):
         self.assertIsInstance(self.clean_list[0], dict)
         self.assertGreater(len(self.clean_list[0]), 0)
 
-
     def test_command_help(self):
         return_string = books.command_help()
         # Assert help method returns string with value
         self.assertIsInstance(return_string, str)
         self.assertGreater(len(return_string), 0)
-
 
     def test_command_year(self):
         # Pick random integer between 0 and length of list
@@ -53,7 +51,6 @@ class TestBooks(unittest.TestCase):
         second = books.command_year(self.clean_list, True)[start + 1]
         self.assertGreaterEqual(first['Year'], second['Year'])
 
-
     def test_command_filter(self):
         good_filters = [99, "Martin", "Agile"]
         bad_filters = [200444, "Lorem Ipsum", "Nonsense-String"]
@@ -68,7 +65,6 @@ class TestBooks(unittest.TestCase):
             self.assertIsInstance(no_result, list)
             self.assertEqual(len(no_result), 0)
 
-
     def test_last_name_sort(self):
         # Pick random integer between 0 and length of list
         start = random.randint(0, (len(self.clean_list) - 2))
@@ -79,4 +75,5 @@ class TestBooks(unittest.TestCase):
         self.assertLessEqual(first['Last'], second['Last'])
 
 
-if __name__ == "__main__": unittest.main()
+if __name__ == "__main__":
+    unittest.main()

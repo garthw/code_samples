@@ -2,7 +2,9 @@
 # Files by Garth Whitten
 # Using Python 2.7.5
 
-import os, sys, getopt
+import os
+import sys
+import getopt
 
 
 def read(rootdir):
@@ -45,7 +47,7 @@ def parse(book_list):
                           "Year": int(book[0])}
             clean_list.append(clean_book)
         else:
-            raise TypeError("Unable to parse data. Please use known delimeter.")
+            raise TypeError("Unable to parse data. Check delimeter.")
 
     return clean_list
 
@@ -90,7 +92,6 @@ def print_list(final_list):
 
 def last_name_sort(final_list):
     sorted_list = sorted(final_list, key=lambda k: k['Last'])
-    print len(sorted_list)
     return sorted_list
 
 
@@ -112,18 +113,16 @@ def main(argv):
                     return None
                 if opt == "--filter":
                     sorted_list = command_filter(sorted_list, arg)
-                    print len(sorted_list)
                 if opt == "--year":
                     sorted_list = command_year(sorted_list)
-                    print len(sorted_list)
                 elif opt == "--reverse":
                     sorted_list = command_year(sorted_list, True)
 
-        print len(sorted_list)
         print_list(sorted_list)
 
     except Exception as e:
         print "Oops!  Encountered an error: {}".format(e)
 
 
-if __name__ == "__main__": main(sys.argv[1:])
+if __name__ == "__main__":
+    main(sys.argv[1:])

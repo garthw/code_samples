@@ -119,7 +119,6 @@ def main(argv):
                     sorted_list = command_year(sorted_list, True)
                     sorted_list = last_name_sort(sorted_list, True)
 
-
         print_list(sorted_list)
 
     except Exception as e:

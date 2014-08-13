@@ -62,11 +62,4 @@ class TestBooks(unittest.TestCase):
             self.assertEqual(len(no_result), 0)
 
 
-    def test_format_list(self):
-        # Test format_list return a string
-        print_string = books.format_list(self.clean_list)
-        self.assertIsInstance(print_string, str)
-        self.assertGreater(len(print_string), 0)
-
-
 if __name__ == "__main__": unittest.main()

@@ -56,8 +56,8 @@ def command_help():
         --year:  Sorts by year in ascending order.
         --reverse:  Sorts by year in descending order.
         --filter [argument]:  Filters list by argument.
-            ex.  python books --filter Agile
-        **** NOTE: --filter is chainable with --year or --reverse  ***
+            ex.  python books.py --filter Agile
+        **** NOTE: --filter is chainable with --year OR --reverse  ***
         """
 
 
@@ -81,7 +81,7 @@ def command_filter(clean_list, arg):
 def format_list(final_list):
     # Returns formatted list
     for f in final_list:
-        return (f["Last"] + ", "
+        print (f["Last"] + ", "
                + f["First"] + ", "
                + f["Title"] + ", "
                + str(f["Year"]))
@@ -108,11 +108,10 @@ def main(argv):
                     clean_list = command_year(clean_list)
                 elif opt == "--reverse":
                     clean_list = command_year(clean_list, True)
+        format_list(clean_list)
+
     except Exception as e:
         print "Oops!  Encountered an error: {}".format(e)
 
-    print format_list(clean_list)
 
-
-if __name__ == "__main__":
-    main(sys.argv[1:])
+if __name__ == "__main__": main(sys.argv[1:])

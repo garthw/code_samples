@@ -1,14 +1,14 @@
 #!/usr/bin/python
 
-import books
-import unittest
-import sys
+import books, unittest, random
+
 
 class TestBooks(unittest.TestCase):
     def setUp(self):
+        # Setup most commonly used values
         self.file_root = "src/"
         self.book_list = books.read(self.file_root)
-        print "in setup"
+        self.clean_list = books.parse(self.book_list)
 
 
     def test_read(self):
@@ -22,33 +22,51 @@ class TestBooks(unittest.TestCase):
         bad_list = ["Test Data With No Delimeter"]
         self.assertRaises(TypeError, books.parse, bad_list)
         parsed_list = books.parse(self.book_list)
-        # Assert parsed list returns list with values
-        self.assertIsInstance(parsed_list, list)
-        self.assertGreater(len(parsed_list), 0)
+        # Assert clean list returns list with values
+        self.assertIsInstance(self.clean_list, list)
+        self.assertGreater(len(self.clean_list), 0)
         # Assert list items are dictionaries with key/values
-        self.assertIsInstance(parsed_list[0], dict)
-        self.assertGreater(len(parsed_list[0]), 0)
+        self.assertIsInstance(self.clean_list[0], dict)
+        self.assertGreater(len(self.clean_list[0]), 0)
 
 
     def test_command_help(self):
         return_string = books.command_help()
+        # Assert help method returns string with value
         self.assertIsInstance(return_string, str)
         self.assertGreater(len(return_string), 0)
 
 
     def test_command_year(self):
-        pass
+        # Pick random integer between 0 and length of list
+        start = random.randint(0, (len(self.clean_list) - 2))
+        first = books.command_year(self.clean_list)[start]
+        second = books.command_year(self.clean_list)[start + 1]
+        # Assert year of random index is less than
+        # or equal to year of following index
+        self.assertLessEqual(first['Year'], second['Year'])
 
 
     def test_command_filter(self):
-        pass
+        good_filters = [99, "Martin", "Agile"]
+        bad_filters = [200444, "Lorem Ipsum", "Nonsense-String"]
+        # Test for results for values w/in list
+        for good in good_filters:
+            good_result = books.command_filter(self.clean_list, good)
+            self.assertIsInstance(good_result, list)
+            self.assertGreater(len(good_result), 0)
+        # Test for no results for values outside of list
+        for bad in bad_filters:
+            no_result = books.command_filter(self.clean_list, bad)
+            self.assertIsInstance(no_result, list)
+            self.assertEqual(len(no_result), 0)
 
 
-    def test_print_list(self):
-        pass
+    def test_format_list(self):
+        # Test format_list return a string
+        print_string = books.format_list(self.clean_list)
+        self.assertIsInstance(print_string, str)
+        self.assertGreater(len(print_string), 0)
 
-
-    def test_main(self):
-        pass
 
 if __name__ == "__main__": unittest.main()

@@ -82,7 +82,7 @@ def command_filter(clean_list, arg):
 
 
 def print_list(final_list):
-    # Returns formatted list
+    # Prints formatted list
     for f in final_list:
         print (f["Last"] + ", "
                + f["First"] + ", "

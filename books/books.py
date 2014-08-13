@@ -90,8 +90,8 @@ def print_list(final_list):
                + str(f["Year"]))
 
 
-def last_name_sort(final_list):
-    sorted_list = sorted(final_list, key=lambda k: k['Last'])
+def last_name_sort(final_list, reverse=False):
+    sorted_list = sorted(final_list, key=lambda k: k['Last'], reverse=reverse)
     return sorted_list
 
 
@@ -117,6 +117,8 @@ def main(argv):
                     sorted_list = command_year(sorted_list)
                 elif opt == "--reverse":
                     sorted_list = command_year(sorted_list, True)
+                    sorted_list = last_name_sort(sorted_list, True)
+
 
         print_list(sorted_list)
 

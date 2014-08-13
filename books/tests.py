@@ -73,6 +73,11 @@ class TestBooks(unittest.TestCase):
         # Assert last name of random index is less than
         # or equal to last name of following index
         self.assertLessEqual(first['Last'], second['Last'])
+         # Assert last name of random index is greater than or equal
+        # to last name of following index when reverse flag is True
+        first = books.last_name_sort(self.clean_list, True)[start]
+        second = books.last_name_sort(self.clean_list, True)[start + 1]
+        self.assertGreaterEqual(first['Last'], second['Last'])
 
 
 if __name__ == "__main__":

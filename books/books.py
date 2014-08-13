@@ -74,12 +74,12 @@ def command_filter(clean_list, arg):
     filtered_list = []
     for c in clean_list:
         for v in c.iteritems():
-            if str(arg) in str(v[1]):
+            if str(arg) in str(v[1]) and c not in filtered_list:
                 filtered_list.append(c)
     return filtered_list
 
 
-def format_list(final_list):
+def print_list(final_list):
     # Returns formatted list
     for f in final_list:
         print (f["Last"] + ", "
@@ -88,12 +88,19 @@ def format_list(final_list):
                + str(f["Year"]))
 
 
+def last_name_sort(final_list):
+    sorted_list = sorted(final_list, key=lambda k: k['Last'])
+    print len(sorted_list)
+    return sorted_list
+
+
 def main(argv):
     # Main Function Call
     # Returns list of books with optional sorting and filtering
     root = "src/"
     book_list = [b.rstrip() for b in read(root)]
     clean_list = parse(book_list)
+    sorted_list = last_name_sort(clean_list)
 
     try:
         opts, args = getopt.getopt(argv, 'h', ['help', 'filter=',
@@ -104,12 +111,16 @@ def main(argv):
                     print command_help()
                     return None
                 if opt == "--filter":
-                    clean_list = command_filter(clean_list, arg)
+                    sorted_list = command_filter(sorted_list, arg)
+                    print len(sorted_list)
                 if opt == "--year":
-                    clean_list = command_year(clean_list)
+                    sorted_list = command_year(sorted_list)
+                    print len(sorted_list)
                 elif opt == "--reverse":
-                    clean_list = command_year(clean_list, True)
-        format_list(clean_list)
+                    sorted_list = command_year(sorted_list, True)
+
+        print len(sorted_list)
+        print_list(sorted_list)
 
     except Exception as e:
         print "Oops!  Encountered an error: {}".format(e)

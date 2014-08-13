@@ -69,4 +69,14 @@ class TestBooks(unittest.TestCase):
             self.assertEqual(len(no_result), 0)
 
 
+    def test_last_name_sort(self):
+        # Pick random integer between 0 and length of list
+        start = random.randint(0, (len(self.clean_list) - 2))
+        first = books.last_name_sort(self.clean_list)[start]
+        second = books.last_name_sort(self.clean_list)[start + 1]
+        # Assert last name of random index is less than
+        # or equal to last name of following index
+        self.assertLessEqual(first['Last'], second['Last'])
+
+
 if __name__ == "__main__": unittest.main()
